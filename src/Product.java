@@ -11,6 +11,7 @@ public class Product {
                 " Name: " + name +
                 " Price: " + price +
                 " Quantity: " + quantity ;
+
     }
 
     public boolean updateQuantity(int amount) {
