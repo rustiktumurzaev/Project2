@@ -7,31 +7,20 @@ public class Cart {
     private double balance;
     private double totalPrice;
 
-    public String getName() {
-        return name;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setName(String name) {
+    public Cart(String name, double balance) {
         this.name = name;
+        this.balance = balance;
+        this.quantity = 0;
+        this.totalPrice = 0.0;
     }
 
-    public void setBalance(double balance) {
-        if (balance >= 0) {
-            this.balance = balance;
-        }
-    }
+    public String getName() { return name; }
+    public int getQuantity() { return quantity; }
+    public double getBalance() { return balance; }
+    public double getTotalPrice() { return totalPrice; }
+
+    public void setName(String name) { this.name = name; }
+    public void setBalance(double balance) { if (balance >= 0) this.balance = balance; }
 
     public void addProduct(Product product, int amount) {
         if (product.updateQuantity(amount)) {
@@ -43,10 +32,9 @@ public class Cart {
         }
     }
 
-    public boolean canBuy() {
-        return balance >= totalPrice;
-    }
+    public boolean canBuy() { return balance >= totalPrice; }
 
+    // --- Buy ---
     public void buy() {
         if (canBuy()) {
             balance -= totalPrice;
