@@ -4,41 +4,31 @@ public class Main {
     public static void main(String[] args) {
 
         Product banana = new Product();
-        banana.id = 124124;
-        banana.name = "Banana";
-        banana.price = 124.1;
-        banana.quantity = 5;
+        banana.setId(124124);
+        banana.setName("Banana");
+        banana.setPrice(124.1);
+        banana.setQuantity(5);
+
         Product apple = new Product();
-        apple.id = 124124901;
-        apple.name = "Apple";
-        apple.price = 70.8;
-        apple.quantity = 10;
-        if (banana.updateQuantity(3)) {
-            System.out.println(banana.getInfo());
+        apple.setId(124124901);
+        apple.setName("Apple");
+        apple.setPrice(70.8);
+        apple.setQuantity(10);
 
-        } else {
-            System.out.println("Error: not enough quantity");
-        }
-        if (apple.updateQuantity(8)) {
-            System.out.println(apple.getInfo());
-
-        } else {
-            System.out.println("Error: not enough quantity");
-        }
         Cart user1 = new Cart();
-        user1.name="Rustam";
-        user1.balance=12083.8;
-        user1.want="Banana and Apple";
-        user1.quantity=4;
-        System.out.println(user1.information());
+        user1.setName("Rustam");
+        user1.setBalance(12083.8);
 
-        System.out.println("Hou much do you want: " +user1.quantity);
-        if(user1.balance >=(banana.price + apple.price)){
-            System.out.println("You may buy");
-        }else{
-            System.out.println("You can't");
-        }
+        user1.addProduct(banana, 2);
+        user1.addProduct(apple, 3);
 
+        System.out.println("\n--- Cart ---");
+        System.out.println(user1);
 
+        user1.buy();
+
+        System.out.println("\n--- Products left ---");
+        System.out.println(banana);
+        System.out.println(apple);
     }
 }

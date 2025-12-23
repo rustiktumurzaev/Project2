@@ -1,25 +1,64 @@
 package rustam;
 
 public class Product {
-    public int id, quantity;
-    public String name;
-    public double price;
 
+    private int id;
+    private String name;
+    private double price;
+    private int quantity;
 
-    public String getInfo() {
-        return "Id: " + id +
-                " Name: " + name +
-                " Price: " + price +
-                " Quantity: " + quantity ;
-
+    public int getId() {
+        return id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(double price) {
+        if (price > 0) {
+            this.price = price;
+        }
+    }
+
+    public void setQuantity(int quantity) {
+        if (quantity >= 0) {
+            this.quantity = quantity;
+        }
+    }
+
 
     public boolean updateQuantity(int amount) {
         if (amount <= quantity) {
             quantity -= amount;
             return true;
-        } else {
-            return false;
         }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
     }
 }

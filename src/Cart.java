@@ -1,14 +1,70 @@
 package rustam;
 
 public class Cart {
-    public int id;
-    public String name;
-    public int quantity;
-    public double balance;
-    public double allofprice;
-    public String want;
-    public String information(){
-        return "Name: "+name+ " Balance: "+balance+" Want "+want +"Quantity  "+quantity;
+
+    private String name;
+    private int quantity;
+    private double balance;
+    private double totalPrice;
+
+    public String getName() {
+        return name;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBalance(double balance) {
+        if (balance >= 0) {
+            this.balance = balance;
+        }
+    }
+
+    public void addProduct(Product product, int amount) {
+        if (product.updateQuantity(amount)) {
+            quantity += amount;
+            totalPrice += product.getPrice() * amount;
+            System.out.println(amount + " " + product.getName() + " added to cart");
+        } else {
+            System.out.println("Not enough " + product.getName());
+        }
+    }
+
+    public boolean canBuy() {
+        return balance >= totalPrice;
+    }
+
+    public void buy() {
+        if (canBuy()) {
+            balance -= totalPrice;
+            System.out.println("Purchase successful!");
+            totalPrice = 0;
+            quantity = 0;
+        } else {
+            System.out.println("Not enough money!");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "name='" + name + '\'' +
+                ", quantity=" + quantity +
+                ", balance=" + balance +
+                ", totalPrice=" + totalPrice +
+                '}';
+    }
 }
