@@ -2,6 +2,7 @@ package rustam;
 
 public class Cart {
 
+
     private String name;
     private int quantity;
     private double balance;

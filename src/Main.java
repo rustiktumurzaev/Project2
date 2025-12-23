@@ -14,6 +14,7 @@ public class Main {
         System.out.println("\n--- Cart ---");
         System.out.println(user1);
 
+
         System.out.println("\n--- Purchase ---");
         user1.buy();
 
