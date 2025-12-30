@@ -2,13 +2,11 @@ package rustam;
 
 public class Product {
 
-
     private int id;
     private String name;
     private double price;
     private int quantity;
 
-    // Parameter constructor
     public Product(int id, String name, double price, int quantity) {
         this.id = id;
         this.name = name;
@@ -16,16 +14,21 @@ public class Product {
         this.quantity = quantity;
     }
 
-    // Getters Setters
+    // Getters
     public int getId() { return id; }
     public String getName() { return name; }
     public double getPrice() { return price; }
     public int getQuantity() { return quantity; }
 
+    // Setters
     public void setId(int id) { this.id = id; }
     public void setName(String name) { this.name = name; }
-    public void setPrice(double price) { if (price > 0) this.price = price; }
-    public void setQuantity(int quantity) { if (quantity >= 0) this.quantity = quantity; }
+    public void setPrice(double price) {
+        if (price > 0) this.price = price;
+    }
+    public void setQuantity(int quantity) {
+        if (quantity >= 0) this.quantity = quantity;
+    }
 
     public boolean updateQuantity(int amount) {
         if (amount <= quantity) {

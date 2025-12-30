@@ -2,7 +2,6 @@ package rustam;
 
 public class Cart {
 
-
     private String name;
     private int quantity;
     private double balance;
@@ -21,7 +20,9 @@ public class Cart {
     public double getTotalPrice() { return totalPrice; }
 
     public void setName(String name) { this.name = name; }
-    public void setBalance(double balance) { if (balance >= 0) this.balance = balance; }
+    public void setBalance(double balance) {
+        if (balance >= 0) this.balance = balance;
+    }
 
     public void addProduct(Product product, int amount) {
         if (product.updateQuantity(amount)) {
@@ -33,9 +34,11 @@ public class Cart {
         }
     }
 
-    public boolean canBuy() { return balance >= totalPrice; }
+    public boolean canBuy() {
+        return balance >= totalPrice;
+    }
 
-    // --- Buy ---
+    // Старый метод
     public void buy() {
         if (canBuy()) {
             balance -= totalPrice;
@@ -44,6 +47,29 @@ public class Cart {
             quantity = 0;
         } else {
             System.out.println("Not enough money!");
+        }
+    }
+
+    // Новый метод с чеком
+    public Receipt buyWithReceipt() {
+        if (canBuy()) {
+            balance -= totalPrice;
+
+            Receipt receipt = new Receipt(
+                    name,
+                    quantity,
+                    totalPrice,
+                    balance
+            );
+
+            System.out.println("Purchase successful!");
+            totalPrice = 0;
+            quantity = 0;
+
+            return receipt;
+        } else {
+            System.out.println("Not enough money!");
+            return null;
         }
     }
 
