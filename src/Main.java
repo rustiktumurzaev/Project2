@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Initial test data
+
         products.add(new Product(1, "Banana", 124.1, 10));
         products.add(new Product(2, "Apple", 70.8, 15));
 
