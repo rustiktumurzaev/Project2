@@ -9,9 +9,9 @@ public class Product {
 
     public Product(int id, String name, double price, int quantity) {
         this.id = id;
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
+        setName(name);
+        setPrice(price);
+        setQuantity(quantity);
     }
 
     // Getters
@@ -21,13 +21,22 @@ public class Product {
     public int getQuantity() { return quantity; }
 
     // Setters
-    public void setId(int id) { this.id = id; }
-    public void setName(String name) { this.name = name; }
-    public void setPrice(double price) {
-        if (price > 0) this.price = price;
+    public void setName(String name) {
+        if (name != null && !name.isEmpty()) {
+            this.name = name;
+        }
     }
+
+    public void setPrice(double price) {
+        if (price > 0) {
+            this.price = price;
+        }
+    }
+
     public void setQuantity(int quantity) {
-        if (quantity >= 0) this.quantity = quantity;
+        if (quantity >= 0) {
+            this.quantity = quantity;
+        }
     }
 
     public boolean updateQuantity(int amount) {

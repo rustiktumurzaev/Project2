@@ -11,16 +11,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-
+        // Initial test data
         products.add(new Product(1, "Banana", 124.1, 10));
-        products.add(new Product(2, "Apple", 70.8, 15));
+        products.add(new FoodProduct(2, "Milk", 80.0, 5, "2026-01-15"));
 
         boolean running = true;
 
         while (running) {
             showMenu();
             int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -69,8 +69,8 @@ public class Main {
 
         System.out.print("ID: ");
         int id = scanner.nextInt();
-
         scanner.nextLine();
+
         System.out.print("Name: ");
         String name = scanner.nextLine();
 
@@ -121,7 +121,6 @@ public class Main {
     // Сатып алу
     private static void buy() {
         Receipt receipt = cart.buyWithReceipt();
-
         if (receipt != null) {
             System.out.println(receipt);
         }
