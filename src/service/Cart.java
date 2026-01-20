@@ -1,5 +1,4 @@
-package rustam;
-
+package service;
 public class Cart implements Payable {
 
     private String name;

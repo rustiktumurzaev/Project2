@@ -1,4 +1,6 @@
-package rustam;
+
+
+import model.FoodProduct;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
