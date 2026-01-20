@@ -1,6 +1,6 @@
 package rustam;
 
-public class Product {
+public abstract class Product {
 
     private int id;
     private String name;
@@ -14,13 +14,16 @@ public class Product {
         setQuantity(quantity);
     }
 
+    // Абстрактный метод
+    public abstract String getType();
+
     // Getters
     public int getId() { return id; }
     public String getName() { return name; }
     public double getPrice() { return price; }
     public int getQuantity() { return quantity; }
 
-    // Setters
+    // Setters с валидацией
     public void setName(String name) {
         if (name != null && !name.isEmpty()) {
             this.name = name;
@@ -50,7 +53,8 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "id=" + id +
+                "type=" + getType() +
+                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", quantity=" + quantity +

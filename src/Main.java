@@ -1,6 +1,7 @@
 package rustam;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -11,36 +12,42 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Initial test data
-        products.add(new Product(1, "Banana", 124.1, 10));
-        products.add(new FoodProduct(2, "Milk", 80.0, 5, "2026-01-15"));
+        products.add(new FoodProduct(1, "Milk", 80.0, 5, "2026-01-15"));
+        products.add(new FoodProduct(2, "Cheese", 450.0, 3, "2026-02-10"));
 
         boolean running = true;
 
         while (running) {
             showMenu();
-            int choice = scanner.nextInt();
-            scanner.nextLine();
 
-            switch (choice) {
-                case 1:
-                    addProduct();
-                    break;
-                case 2:
-                    viewAllProducts();
-                    break;
-                case 3:
-                    addToCart();
-                    break;
-                case 4:
-                    buy();
-                    break;
-                case 0:
-                    running = false;
-                    System.out.println("Goodbye!");
-                    break;
-                default:
-                    System.out.println("Invalid choice!");
+            try {
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (choice) {
+                    case 1:
+                        addProduct();
+                        break;
+                    case 2:
+                        viewAllProducts();
+                        break;
+                    case 3:
+                        addToCart();
+                        break;
+                    case 4:
+                        buy();
+                        break;
+                    case 0:
+                        running = false;
+                        System.out.println("Goodbye!");
+                        break;
+                    default:
+                        System.out.println("Invalid choice!");
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Please enter a number!");
+                scanner.nextLine();
             }
 
             if (running) {
@@ -52,7 +59,7 @@ public class Main {
         scanner.close();
     }
 
-    // Жай меню
+    //  Меню
     private static void showMenu() {
         System.out.println("\n=== GROCERY STORE SYSTEM ===");
         System.out.println("1. Add Product");
@@ -63,28 +70,38 @@ public class Main {
         System.out.print("Enter choice: ");
     }
 
-    // Товар косу
+    //  Товар косу
     private static void addProduct() {
-        System.out.println("\n--- ADD PRODUCT ---");
+        try {
+            System.out.println("\n--- ADD PRODUCT ---");
 
-        System.out.print("ID: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
+            System.out.print("ID: ");
+            int id = scanner.nextInt();
+            scanner.nextLine();
 
-        System.out.print("Name: ");
-        String name = scanner.nextLine();
+            System.out.print("Name: ");
+            String name = scanner.nextLine();
 
-        System.out.print("Price: ");
-        double price = scanner.nextDouble();
+            System.out.print("Price: ");
+            double price = scanner.nextDouble();
 
-        System.out.print("Quantity: ");
-        int quantity = scanner.nextInt();
+            System.out.print("Quantity: ");
+            int quantity = scanner.nextInt();
+            scanner.nextLine();
 
-        products.add(new Product(id, name, price, quantity));
-        System.out.println("Product added successfully!");
+            System.out.print("Expiration date: ");
+            String date = scanner.nextLine();
+
+            products.add(new FoodProduct(id, name, price, quantity, date));
+            System.out.println("Product added successfully!");
+
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Product not added.");
+            scanner.nextLine();
+        }
     }
 
-    // Барлык продукт
+    // Букил затты кору
     private static void viewAllProducts() {
         System.out.println("\n--- ALL PRODUCTS ---");
 
@@ -98,29 +115,36 @@ public class Main {
         }
     }
 
-    //Корзинага косу
+    // Корзинага косу
     private static void addToCart() {
-        viewAllProducts();
+        try {
+            viewAllProducts();
 
-        System.out.print("\nEnter product ID: ");
-        int id = scanner.nextInt();
+            System.out.print("\nEnter product ID: ");
+            int id = scanner.nextInt();
 
-        System.out.print("Enter amount: ");
-        int amount = scanner.nextInt();
+            System.out.print("Enter amount: ");
+            int amount = scanner.nextInt();
+            scanner.nextLine();
 
-        for (Product p : products) {
-            if (p.getId() == id) {
-                cart.addProduct(p, amount);
-                return;
+            for (Product p : products) {
+                if (p.getId() == id) {
+                    cart.addProduct(p, amount);
+                    return;
+                }
             }
-        }
 
-        System.out.println("Product not found!");
+            System.out.println("Product not found!");
+
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input!");
+            scanner.nextLine();
+        }
     }
 
     // Сатып алу
     private static void buy() {
-        Receipt receipt = cart.buyWithReceipt();
+        Receipt receipt = cart.pay();
         if (receipt != null) {
             System.out.println(receipt);
         }

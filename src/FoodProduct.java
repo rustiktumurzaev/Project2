@@ -10,13 +10,13 @@ public class FoodProduct extends Product {
     }
 
     @Override
+    public String getType() {
+        return "Food";
+    }
+
+    @Override
     public String toString() {
-        return "FoodProduct{" +
-                "id=" + getId() +
-                ", name='" + getName() + '\'' +
-                ", price=" + getPrice() +
-                ", quantity=" + getQuantity() +
-                ", expirationDate='" + expirationDate + '\'' +
-                '}';
+        return super.toString() +
+                ", expirationDate='" + expirationDate + "'";
     }
 }

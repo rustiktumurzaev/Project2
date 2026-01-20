@@ -1,6 +1,6 @@
 package rustam;
 
-public class Cart {
+public class Cart implements Payable {
 
     private String name;
     private int quantity;
@@ -14,16 +14,6 @@ public class Cart {
         this.totalPrice = 0.0;
     }
 
-    public String getName() { return name; }
-    public int getQuantity() { return quantity; }
-    public double getBalance() { return balance; }
-    public double getTotalPrice() { return totalPrice; }
-
-    public void setName(String name) { this.name = name; }
-    public void setBalance(double balance) {
-        if (balance >= 0) this.balance = balance;
-    }
-
     public void addProduct(Product product, int amount) {
         if (product.updateQuantity(amount)) {
             quantity += amount;
@@ -34,52 +24,30 @@ public class Cart {
         }
     }
 
-    public boolean canBuy() {
+    @Override
+    public boolean canPay() {
         return balance >= totalPrice;
     }
 
-    // Старый метод
-    public void buy() {
-        if (canBuy()) {
-            balance -= totalPrice;
-            System.out.println("Purchase successful!");
-            totalPrice = 0;
-            quantity = 0;
-        } else {
-            System.out.println("Not enough money!");
-        }
-    }
-
-    // Новый метод с чеком
-    public Receipt buyWithReceipt() {
-        if (canBuy()) {
-            balance -= totalPrice;
-
-            Receipt receipt = new Receipt(
-                    name,
-                    quantity,
-                    totalPrice,
-                    balance
-            );
-
-            System.out.println("Purchase successful!");
-            totalPrice = 0;
-            quantity = 0;
-
-            return receipt;
-        } else {
+    @Override
+    public Receipt pay() {
+        if (!canPay()) {
             System.out.println("Not enough money!");
             return null;
         }
-    }
 
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "name='" + name + '\'' +
-                ", quantity=" + quantity +
-                ", balance=" + balance +
-                ", totalPrice=" + totalPrice +
-                '}';
+        balance -= totalPrice;
+
+        Receipt receipt = new Receipt(
+                name,
+                quantity,
+                totalPrice,
+                balance
+        );
+
+        totalPrice = 0;
+        quantity = 0;
+
+        return receipt;
     }
 }
