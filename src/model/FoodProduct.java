@@ -1,4 +1,4 @@
-package model;
+package rustam;
 
 public class FoodProduct extends Product {
 

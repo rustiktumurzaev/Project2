@@ -1,4 +1,4 @@
-package service;
+package rustam;
 public class Cart implements Payable {
 
     private String name;
@@ -22,6 +22,31 @@ public class Cart implements Payable {
             System.out.println("Not enough " + product.getName());
         }
     }
+    public boolean canBuy() {
+        return balance >= totalPrice;
+    }
+    public Receipt buyWithReceipt() {
+        if (canBuy()) {
+            balance -= totalPrice;
+
+            Receipt receipt = new Receipt(
+                    name,
+                    quantity,
+                    totalPrice,
+                    balance
+            );
+
+            System.out.println("Purchase successful!");
+            totalPrice = 0;
+            quantity = 0;
+
+            return receipt;
+        } else {
+            System.out.println("Not enough money!");
+            return null;
+        }
+    }
+
 
     @Override
     public boolean canPay() {
